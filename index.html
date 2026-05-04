@@ -36,31 +36,36 @@
         .logo-card { width:190px; height:190px; transform-style:preserve-3d; transition:transform 0.08s ease-out; position:relative; }
         .logo-img { width:190px; height:190px; object-fit:cover; border-radius:50%; border:2px solid rgba(0,229,255,0.6); }
         h1 { font-size:clamp(40px,10vw,88px); font-weight:900; font-style:italic; text-transform:uppercase; letter-spacing:-0.04em; text-shadow:0 0 40px rgba(0,229,255,0.3); line-height:1; margin-bottom:14px; }
+        #clock { font-family:'JetBrains Mono',monospace; letter-spacing:0.2em; background:rgba(0,229,255,0.05); border:1px solid rgba(0,229,255,0.14); padding:4px 14px; border-radius:8px; color:var(--cyan); font-size:13px; font-weight:700; display:inline-block; margin-bottom:22px; }
+
+        /* ===== PS5 SECTION (EFFET AKFA) ===== */
+        .ps5-section { width: 100%; min-height: 600vh; position: relative; }
+        .ps5-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1500px; }
         
-        /* ===== PS5 SECTION (AKFA EFFECT) ===== */
-        .ps5-section { width: 100%; min-height: 500vh; position: relative; background: transparent; }
-        .ps5-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; perspective: 1200px; }
-        
-        .ps5-wrapper { position: relative; z-index: 5; transition: transform 0.1s ease-out, opacity 0.1s ease-out; will-change: transform, opacity; }
+        .ps5-wrapper { 
+            position: relative; 
+            z-index: 5; 
+            transition: transform 0.1s ease-out, opacity 0.1s ease-out; 
+            will-change: transform, opacity;
+        }
+
         .ps5-img { 
-            width: min(600px, 80vw); 
+            width: min(500px, 75vw); 
             mix-blend-mode: lighten; 
-            filter: drop-shadow(0 0 50px rgba(0,229,255,0.3));
+            filter: drop-shadow(0 0 40px rgba(0,229,255,0.25));
         }
 
         .game-info-panel {
-            position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
-            text-align: right; opacity: 0; transition: all 0.5s ease; z-index: 10; pointer-events: none;
+            position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
+            text-align: right; opacity: 0; transition: opacity 0.4s ease; z-index: 10; pointer-events: none;
         }
-        .game-info-panel.visible { opacity: 1; transform: translateY(-50%) translateX(0); }
-        .game-info-name { font-size: clamp(30px, 6vw, 60px); font-weight: 900; font-style: italic; text-transform: uppercase; color: #fff; text-shadow: 0 0 30px var(--cyan); }
-        .game-info-number { font-family: 'JetBrains Mono'; font-size: 100px; color: rgba(0,229,255,0.1); margin-bottom: -30px; }
+        .game-info-panel.visible { opacity: 1; }
+        .game-info-name { font-size: clamp(28px, 5vw, 52px); font-weight: 900; font-style: italic; text-transform: uppercase; color: #fff; text-shadow: 0 0 30px rgba(0,229,255,0.4); }
+        .game-info-number { font-family: 'JetBrains Mono'; font-size: 80px; color: rgba(0,229,255,0.08); margin-bottom: -20px; }
 
         /* ===== DISCORD ===== */
-        .discord-section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .btn-discord { background: var(--cyan); color: #000; padding: 20px 50px; border-radius: 999px; font-weight: 900; text-decoration: none; text-transform: uppercase; }
-
-        #audioContainer { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 50px; }
+        .discord-section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 20px; }
+        .btn-discord { display: inline-flex; align-items: center; gap: 12px; background: var(--cyan); color: #000; padding: 20px 52px; border-radius: 999px; font-weight: 900; text-decoration: none; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -71,8 +76,8 @@
     <div class="nav-inner">
         <a href="#" class="nav-logo">ECHO'S <span>FAMILY</span></a>
         <div class="nav-links">
-            <button class="nav-rules" onclick="openModal()">Rules</button>
-            <a href="https://discord.gg/328cwmvw7V" class="btn-join">Join Now</a>
+            <button class="nav-rules">Rules</button>
+            <a href="https://discord.gg/328cwmvw7V" target="_blank" class="btn-join">Join Now</a>
         </div>
     </div>
 </nav>
@@ -82,7 +87,8 @@
         <img src="echo logo.png" alt="Echo Logo" class="logo-img">
     </div>
     <h1>ECHO'S FAMILY</h1>
-    <p style="color:var(--cyan); letter-spacing: 0.5em; font-size: 10px; text-transform: uppercase;">Safety • Friendship • Fun</p>
+    <div id="clock">00:00:00</div>
+    <p style="color:#444; letter-spacing:0.5em; font-size:10px; text-transform:uppercase;">Safety &bull; Friendship &bull; Fun</p>
 </section>
 
 <section class="ps5-section" id="ps5Section">
@@ -90,8 +96,8 @@
         <div class="game-info-panel" id="gameInfoPanel">
             <div class="game-info-number" id="gameNumber">01</div>
             <div class="game-info-name" id="gameName">FORTNITE</div>
-            <div style="display:flex; gap:10px; justify-content: flex-end;" id="gameTags">
-                <span style="border:1px solid var(--cyan); padding:2px 8px; font-size:10px;">BATTLE ROYALE</span>
+            <div style="display:flex; gap:8px; justify-content: flex-end;">
+                <span style="font-size:9px; color:var(--cyan); border:1px solid var(--cyan); padding:4px 10px; border-radius:999px;">BATTLE ROYALE</span>
             </div>
         </div>
 
@@ -102,76 +108,72 @@
 </section>
 
 <section class="discord-section">
-    <h2 style="font-size: 50px; margin-bottom: 30px;">PRÊT À REJOINDRE ?</h2>
-    <a href="https://discord.gg/328cwmvw7V" class="btn-discord">REJOINDRE LE DISCORD</a>
+    <h2 style="font-size: clamp(36px, 8vw, 88px); font-weight: 900; text-transform: uppercase; font-style: italic;">JOIN THE FAMILY</h2>
+    <a href="https://discord.gg/328cwmvw7V" target="_blank" class="btn-discord">Join Now</a>
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-    // --- STAR BACKGROUND ---
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('bg-canvas'), alpha: true});
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    const starsGeometry = new THREE.BufferGeometry();
-    const starsCount = 1500;
-    const posArray = new Float32Array(starsCount * 3);
-    for(let i=0; i < starsCount * 3; i++) posArray[i] = (Math.random() - 0.5) * 100;
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const starsMaterial = new THREE.PointsMaterial({size: 0.05, color: 0x00e5ff});
-    const starsMesh = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(starsMesh);
-    camera.position.z = 30;
-    function animateStars() { requestAnimationFrame(animateStars); starsMesh.rotation.y += 0.001; renderer.render(scene, camera); }
-    animateStars();
+    // --- CLOCK ---
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
+    }
+    setInterval(updateClock, 1000);
 
     // --- GAMES DATA ---
     const GAMES = [
-        { name: 'FORTNITE', num: '01', tags: ['Battle Royale', 'Pro'] },
-        { name: 'MINECRAFT', num: '02', tags: ['Survival', 'Build'] },
-        { name: 'VALORANT', num: '03', tags: ['Tactical', 'FPS'] },
-        { name: 'GTA RP', num: '04', tags: ['Roleplay', 'RedSide'] }
+        { name: 'FORTNITE', num: '01' },
+        { name: 'MINECRAFT', num: '02' },
+        { name: 'VALORANT', num: '03' },
+        { name: 'GTA RP', num: '04' }
     ];
 
-    // --- AKFA ZOOM EFFECT & GAME SWITCH ---
+    // --- EFFET ZOOM AKFA HOLDING ---
     window.addEventListener('scroll', () => {
         const section = document.getElementById('ps5Section');
-        const ps5 = document.getElementById('ps5Wrapper');
+        const wrapper = document.getElementById('ps5Wrapper');
         const info = document.getElementById('gameInfoPanel');
         
         const rect = section.getBoundingClientRect();
+        // Calcule le % de défilement dans la section PS5 (0 à 1)
         const scrollPercent = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)));
 
-        // 1. Zoom de la PS5 (Scale de 1 à 8)
-        let scale = 1 + (scrollPercent * 7);
-        // 2. Disparition (Opacité de 1 à 0)
-        let opacity = 1 - (scrollPercent * 1.2);
-        // 3. Rotation légère pour l'angle
-        let rotation = scrollPercent * 15;
+        // ZOOM : De 1 à 10 (la PS5 s'approche et nous dépasse)
+        let scale = 1 + (scrollPercent * 9);
+        // OPACITÉ : Disparaît progressivement (comme le bâtiment d'Akfa)
+        let opacity = 1 - (scrollPercent * 1.5);
+        
+        wrapper.style.transform = `scale(${scale})`;
+        wrapper.style.opacity = opacity > 0 ? opacity : 0;
 
-        ps5.style.transform = `scale(${scale}) rotateY(${rotation}deg)`;
-        ps5.style.opacity = opacity;
-
-        // Affichage des titres de jeux selon le scroll
+        // CHANGEMENT DE TITRES : On change le texte selon la position
         const gameIndex = Math.floor(scrollPercent * GAMES.length);
-        if (GAMES[gameIndex]) {
+        if (GAMES[gameIndex] && scrollPercent > 0.05) {
             document.getElementById('gameName').innerText = GAMES[gameIndex].name;
             document.getElementById('gameNumber').innerText = GAMES[gameIndex].num;
             info.classList.add('visible');
-        }
-
-        if (scrollPercent > 0.8 || scrollPercent < 0.05) {
+        } else {
             info.classList.remove('visible');
         }
     });
 
-    // --- LOGO TILT ---
-    const card = document.getElementById('logoCard');
-    document.addEventListener('mousemove', (e) => {
-        let x = (window.innerWidth / 2 - e.pageX) / 20;
-        let y = (window.innerHeight / 2 - e.pageY) / 20;
-        card.style.transform = `rotateX(${y}deg) rotateY(${-x}deg)`;
-    });
+    // --- STARFIELD BACKGROUND ---
+    const canvas = document.getElementById('bg-canvas');
+    const renderer = new THREE.WebGLRenderer({canvas, alpha: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.z = 30;
+    const geo = new THREE.BufferGeometry();
+    const positions = new Float32Array(1000 * 3);
+    for(let i=0; i<3000; i++) positions[i] = (Math.random()-0.5)*100;
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const mat = new THREE.PointsMaterial({size: 0.1, color: 0x00e5ff});
+    const stars = new THREE.Points(geo, mat);
+    scene.add(stars);
+    function animate() { requestAnimationFrame(animate); stars.rotation.y += 0.001; renderer.render(scene, camera); }
+    animate();
 </script>
 </body>
 </html>
